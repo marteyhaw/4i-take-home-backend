@@ -1,9 +1,11 @@
 import json
 
+from django.db.utils import IntegrityError
 from django.http import HttpRequest, JsonResponse
 from django.views.decorators.http import require_http_methods
 
 from common.errors import json_message_response
+from common.serializers import validate_json
 from employees.encoders import EmployeeDetailEncoder, EmployeeListEncoder
 from employees.models import Employee
 
@@ -16,13 +18,18 @@ def api_list_employees(request: HttpRequest):
             {"employees": employees},
             encoder=EmployeeListEncoder,
         )
+
     else:
         content = json.loads(request.body)
+
+        errors = validate_json(content, Employee)
+        if errors:
+            return JsonResponse({"errors": errors}, status=400)
+
         try:
             employee = Employee.objects.create(**content)
-        except Exception as e:
-            message = f"Bad request. ({e.__class__.__name__})"
-            return json_message_response(message, 400)
+        except IntegrityError:
+            return json_message_response("Email or telephone number is already taken.", 400)
 
         return JsonResponse(
             employee,
