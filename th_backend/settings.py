@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 INSTALLED_APPS = [
     "employees.apps.EmployeesConfig",
+    "assets.apps.AssetsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
