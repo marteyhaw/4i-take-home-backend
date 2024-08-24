@@ -6,8 +6,8 @@ from django.views.decorators.http import require_http_methods
 
 from assets.encoders import AssetDetailEncoder, AssetListEncoder
 from assets.models import Asset
-from common.errors import json_message_response
-from common.serializers import validate_json
+from common.serializers import model_update, validate_json
+from common.utils import json_message_response
 
 
 @require_http_methods(["GET", "POST"])
@@ -67,11 +67,8 @@ def api_show_asset(request: HttpRequest, id: int):
             return json_message_response("Invalid asset id.", 404)
 
         props = ["asset_name", "serial_number", "price", "color", "description", "certification"]
-        for prop in props:
-            if prop in content:
-                setattr(asset, prop, content[prop])
+        asset, _ = model_update(asset, props, content)
 
-        asset.save()
         return JsonResponse(
             asset,
             encoder=AssetDetailEncoder,

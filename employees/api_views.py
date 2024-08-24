@@ -4,8 +4,8 @@ from django.db.utils import IntegrityError
 from django.http import HttpRequest, JsonResponse
 from django.views.decorators.http import require_http_methods
 
-from common.errors import json_message_response
-from common.serializers import validate_json
+from common.serializers import model_update, validate_json
+from common.utils import json_message_response
 from employees.encoders import EmployeeDetailEncoder, EmployeeListEncoder
 from employees.models import Employee
 
@@ -67,11 +67,8 @@ def api_show_employee(request: HttpRequest, id: int):
             return json_message_response("Invalid employee id.", 404)
 
         props = ["first_name", "last_name", "email", "telephone", "bio", "union"]
-        for prop in props:
-            if prop in content:
-                setattr(employee, prop, content[prop])
+        employee, _ = model_update(employee, props, content)
 
-        employee.save()
         return JsonResponse(
             employee,
             encoder=EmployeeDetailEncoder,
