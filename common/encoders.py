@@ -1,6 +1,14 @@
+from decimal import Decimal
 from json import JSONEncoder
 
 from django.db.models import QuerySet
+
+
+class DecimalEncoder(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, Decimal):
+            return str(o)
+        return super().default(o)
 
 
 class QuerySetEncoder(JSONEncoder):
@@ -11,7 +19,7 @@ class QuerySetEncoder(JSONEncoder):
             return super().default(o)
 
 
-class ModelEncoder(QuerySetEncoder, JSONEncoder):
+class ModelEncoder(DecimalEncoder, QuerySetEncoder, JSONEncoder):
     encoders = {}
 
     def default(self, o):
