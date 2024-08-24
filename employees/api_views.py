@@ -30,3 +30,40 @@ def api_list_employees(request: HttpRequest):
             safe=False,
             status=201,
         )
+
+
+@require_http_methods(["GET", "DELETE", "PUT"])
+def api_show_employee(request: HttpRequest, id: int):
+    if request.method == "GET":
+        try:
+            employee = Employee.objects.get(id=id)
+            return JsonResponse(
+                employee,
+                encoder=EmployeeDetailEncoder,
+                safe=False,
+            )
+        except Employee.DoesNotExist:
+            return json_message_response("Invalid employee id.", 404)
+
+    elif request.method == "DELETE":
+        count, _ = Employee.objects.filter(id=id).delete()
+        if count > 0:
+            return json_message_response("Employee deletion successful.", 200)
+        else:
+            return json_message_response("Employee deletion failed.", 400)
+
+    else:
+        content = json.loads(request.body)
+        employee = Employee.objects.get(id=id)
+
+        props = ["first_name", "last_name", "email", "telephone", "bio", "union"]
+        for prop in props:
+            if prop in content:
+                setattr(employee, prop, content[prop])
+
+        employee.save()
+        return JsonResponse(
+            employee,
+            encoder=EmployeeDetailEncoder,
+            safe=False,
+        )
