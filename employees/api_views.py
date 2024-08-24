@@ -61,7 +61,10 @@ def api_show_employee(request: HttpRequest, id: int):
 
     else:
         content = json.loads(request.body)
-        employee = Employee.objects.get(id=id)
+        try:
+            employee = Employee.objects.get(id=id)
+        except Employee.DoesNotExist:
+            return json_message_response("Invalid employee id.", 404)
 
         props = ["first_name", "last_name", "email", "telephone", "bio", "union"]
         for prop in props:

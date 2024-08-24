@@ -61,7 +61,10 @@ def api_show_asset(request: HttpRequest, id: int):
 
     else:
         content = json.loads(request.body)
-        asset = Asset.objects.get(id=id)
+        try:
+            asset = Asset.objects.get(id=id)
+        except Asset.DoesNotExist:
+            return json_message_response("Invalid asset id.", 404)
 
         props = ["asset_name", "serial_number", "price", "color", "description", "certification"]
         for prop in props:
