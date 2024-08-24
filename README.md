@@ -18,21 +18,21 @@ This is the RESTful API backend (Django and PostgreSQL) counterpart of the front
 - python-dotenv v1.0.1 (load `.env` variables)
 - psycopg2-binary v2.9.9 (adapter for PostgreSQL)
 
-## Features
+## MVP Features
 
 ### Employees
-- Create an employee
-- Read all employees
-- Read one employee
-- Update one employee
-- Delete one employee
+- [x] Create an employee
+- [x] Read all employees
+- [x] Read one employee
+- [x] Update one employee
+- [x] Delete one employee
 
 ### Assets
-- Create an asset
-- Read all assets
-- Read one asset
-- Update one asset
-- Delete one asset
+- [x] Create an asset
+- [x] Read all assets
+- [x] Read one asset
+- [x] Update one asset
+- [x] Delete one asset
 
 ## Demo
 
