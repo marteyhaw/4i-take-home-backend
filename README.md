@@ -10,8 +10,8 @@ This is the RESTful API backend (Django and PostgreSQL) counterpart of the front
   - [Employee endpoints demo](#employee-endpoints-demo)
   - [Asset endpoints demo](#asset-endpoints-demo)
 - [Models](#models)
-  - [**Employee**](#employee)
-  - [**Asset**](#asset)
+  - [Employee](#employee)
+  - [Asset](#asset)
 - [REST API](#rest-api)
   - [Employees](#employees-1)
   - [Sample of Employee POST request](#sample-of-employee-post-request)
@@ -46,14 +46,14 @@ This is the RESTful API backend (Django and PostgreSQL) counterpart of the front
 ## Demos
 
 ### Employee endpoints demo
-https://github.com/user-attachments/assets/ba72ad38-7f8c-44d0-85d2-a050cd3bebcb
+https://github.com/user-attachments/assets/89775a38-99e7-4056-8842-4514660af6db
 
 ### Asset endpoints demo
-https://github.com/user-attachments/assets/9098f2bf-e464-458c-8ca3-bb7870a2fbb1
+https://github.com/user-attachments/assets/22317809-3349-42be-a47e-6ba1113d66ea
 
 ## Models
 
-### **Employee**
+### Employee
 
 | Attribute  |  Type   |        Options         |
 | ---------- | :-----: | :--------------------: |
@@ -64,7 +64,7 @@ https://github.com/user-attachments/assets/9098f2bf-e464-458c-8ca3-bb7870a2fbb1
 | bio        | string  |    max. 1000 chars     |
 | union      | boolean |     default: False     |
 
-### **Asset**
+### Asset
 
 | Attribute     |  Type   |                 Options                 |
 | ------------- | :-----: | :-------------------------------------: |
