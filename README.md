@@ -46,10 +46,10 @@ This is the RESTful API backend (Django and PostgreSQL) counterpart of the front
 ## Demos
 
 ### Employee endpoints demo
-<video controls src="media/videos/demo_employees_endpoints.mp4" title="Employee endpoints demo"></video>
+https://github.com/user-attachments/assets/ba72ad38-7f8c-44d0-85d2-a050cd3bebcb
 
 ### Asset endpoints demo
-<video controls src="media/videos/demo_assets_endpoints.mp4" title="Title"></video>
+https://github.com/user-attachments/assets/9098f2bf-e464-458c-8ca3-bb7870a2fbb1
 
 ## Models
 
