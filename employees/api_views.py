@@ -23,4 +23,5 @@ def api_list_employees(request: HttpRequest):
             employee,
             encoder=EmployeeDetailEncoder,
             safe=False,
+            status=201,
         )
