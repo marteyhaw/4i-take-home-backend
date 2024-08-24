@@ -37,3 +37,40 @@ def api_list_assets(request: HttpRequest):
             safe=False,
             status=201,
         )
+
+
+@require_http_methods(["GET", "DELETE", "PUT"])
+def api_show_asset(request: HttpRequest, id: int):
+    if request.method == "GET":
+        try:
+            asset = Asset.objects.get(id=id)
+            return JsonResponse(
+                asset,
+                encoder=AssetDetailEncoder,
+                safe=False,
+            )
+        except Asset.DoesNotExist:
+            return json_message_response("Invalid asset id.", 404)
+
+    elif request.method == "DELETE":
+        count, _ = Asset.objects.filter(id=id).delete()
+        if count > 0:
+            return json_message_response("Asset deletion successful.", 200)
+        else:
+            return json_message_response("Asset deletion failed.", 400)
+
+    else:
+        content = json.loads(request.body)
+        asset = Asset.objects.get(id=id)
+
+        props = ["asset_name", "serial_number", "price", "color", "description", "certification"]
+        for prop in props:
+            if prop in content:
+                setattr(asset, prop, content[prop])
+
+        asset.save()
+        return JsonResponse(
+            asset,
+            encoder=AssetDetailEncoder,
+            safe=False,
+        )
